@@ -1,0 +1,21 @@
+app:
+    group: backend
+    service:
+        type: NodePort
+
+ingress:
+    paths:
+        - /*
+
+replicaCount: 1
+
+resources: {}
+
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+

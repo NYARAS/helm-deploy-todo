@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.app.name }}
+  namespace: {{ .Values.app.namespace }}
+  labels:
+    app: {{ .Values.app.name }}
+    group: {{ .Values.app.group }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      app: {{ .Values.app.name }}
+  template:
+    metadata:
+      labels:
+       app: {{ .Values.app.name }}
+       group: {{ .Values.app.group }}
+    spec:
+      containers:
+        - name: {{ .Values.app.name }}
+          image: {{ .Values.app.image }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.app.container.env.port }}
+          env:
+           - name: DB_NAME
+             value: {{ .Values.app.container.env.db_name | quote }}
+           - name: DB_USER
+             value: {{ .Values.app.container.env.db_user | quote }}
+           - name: DB_HOST
+             value: {{ .Values.app.container.env.db_host | quote }}
+           - name: DB_PASS
+             value: {{ .Values.app.container.env.db_pass | quote }}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+        # Google CloudSQL Proxy container
+        - name: cloudsql-proxy
+          image: gcr.io/cloudsql-docker/gce-proxy:1.22.0
+          command: [""]
+          volumeMounts:
+            - name: cloudsql-secrets-volume
+              mountPath: /secrets/cloudsql
+              readOnly: true
+      volumes:
+        - name: cloudsql-secrets-volume
+          secret:
+            secretName: cloudsql-instance-credentials
