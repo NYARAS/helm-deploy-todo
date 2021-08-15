@@ -1,0 +1,17 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: Issuer
+metadata:
+  name: {{ .Values.app.certificate.issuer.name }}
+  namespace: {{ .Values.app.namespace }}
+  labels:
+    app.kubernetes.io/managed-by: "Helm"
+spec:
+  acme:
+    email: {{ .Values.app.certificate.acme.email }}
+    privateKeySecretRef:
+      name: {{ .Values.app.certificate.issuer.name }}
+    server: {{ .Values.app.certificate.acme.server }}
+    solvers:
+      - http01:
+          ingress:
+            class: {{ .Values.ingress.annotations.class }}
