@@ -123,8 +123,8 @@ DATABASES = {
         "NAME": os.getenv("DB_NAME", "tododb"),
         "USER": os.getenv("DB_USER", "app"),
         "PASSWORD": os.getenv("DB_PASS", "app"),
-        "HOST": os.getenv("DB_HOST", ""),
-        "PORT": os.getenv("DB_PORT", ""),
+        "HOST": os.getenv("DB_HOST", "127.0.0.1"),
+        "PORT": os.getenv("DB_PORT", "5432"),
     }
 }
 
