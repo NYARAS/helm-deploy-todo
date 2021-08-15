@@ -21,16 +21,15 @@ Cloning from github
 ~~~~~~~~~~~~~~~~~~~
 From your terminal go to the directory you want to clone the project into.
 
-```sh
-$ cd path/to/your/directory
-```
+.. code:: bash
+
+	$ cd path/to/your/directory
 
 Clone the project.
 
-```sh
+.. code:: bash
 
 	$ git clone git@github.com:NYARAS/helm-deploy-todo.git
-```
 
 Setting up the project's dependencies
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -47,43 +46,39 @@ Setup the following dependencies.
 .. _python-dev: https://www.python.org/dev/
 .. _python3-dev: https://www.python.org/dev/
 
-```sh
+.. code:: bash
 
 	$ cd path/to/your/directory/erp-backend
-```
 
 Create a virtual environment to use for your project
 
-```sh
+.. code:: bash
 
   # Ignore this if you are not using virtualwrapper
   $ mkvirtualenv --python=/usr/bin/python3 env # env is the name of your virtual environment
-```
 
 Configure the virtualenv to prepare the test environment each time you activate it
 
-```sh
+.. code:: bash
 
   # Ignore this if you are not using virtualwrapper
   $ nano ~/{virtualenv_folder_path}/{env_name}/bin/postactivate
   # copy this --> run prepare_test_environment <-- to the opened file, then save
-```
 
 From your virtualenv do the following.
 
-```sh
+.. code:: bash
 
 	(env)$ pip install -r requirements.txt # run this in a clean virtualenv
 	(env)$ pip install -r requirements.txt
     (env)$ python manage.py makemigrations
 	(env)$ python manage.py migrate # run the migrations
-```
 
 Running & Testing the project
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 To run the project:
 
-```sh
+.. code:: bash
 
     (env)$ ./manage.py runserver # the information below will be displayed if everything is okay
     Watching for file changes with StatReloader
@@ -94,5 +89,4 @@ To run the project:
     Django version 3.2.6, using settings 'todo.settings'
     Starting development server at http://127.0.0.1:8000/
     Quit the server with CONTROL-C.
-```
 
